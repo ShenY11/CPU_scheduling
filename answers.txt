@@ -1,0 +1,78 @@
+CS 2200 Fall 2021
+Project 4
+
+Name: Yuting Shen
+GT Username: 903628516
+
+Problem 1B (FCFS Scheduler)
+----------
+ 1 processor:
+- Average # of Context Switches: 99.00
+- Average Total Execution Time: 67.60
+- Average Total Wait Time: 389.90
+
+ 2 processors:
+- Average # of Context Switches: 109.16
+- Average Total Execution Time: 35.80
+- Average Total Wait Time: 89.29
+
+ 4 processors:
+- Average # of Context Switches: 181.00
+- Average Total Execution Time: 33.40
+- Average Total Wait Time: 0.30
+
+It's not a linear relationship between the number of CPUs and total execution time. There's significant change of execution time when raise the number of processor from 1 to 2. However, when raising the number of processor from 2 to 4, the execution time only changes slightly.
+
+Because the CPU is more than what needed, so it will be idle, doing nothing. Therefore, even with more CPU, the execution time does not decreases much.
+
+
+Problem 2B (Priority Scheduler)
+----------
+ 1 processor:
+- Average # of Context Switches: 101.00
+- Average Total Execution Time: 67.90
+- Average Total Wait Time: 174.10
+
+ 2 processors:
+- Average # of Context Switches: 113.36
+- Average Total Execution Time: 37.34
+- Average Total Wait Time: 42.06
+
+ 4 processors:
+- Average # of Context Switches: 181.64
+- Average Total Execution Time: 33.34
+- Average Total Wait Time: 0.24
+
+Priority schedulers lead to starvations among processes with lower priority because: processes with higher priority will be added into the ready queue and soon go to CPU and IO burst, while processes with lower priority has to wait on the ready queue for a very long time.
+
+The operating system can just increase the priority for those processes with low priority waiting too long on the ready queue. So these processes with low priority before can also be executed.
+
+
+Problem 3B (Round-Robin)
+----------
+ 1 processor 200ms:
+- Average # of Context Switches: 362.00 
+- Average Total Execution Time: 67.50 
+- Average Total Wait Time: 285.20
+
+ 1 processor 400ms:
+- Average # of Context Switches: 203.00 
+- Average Total Execution Time: 67.60 
+- Average Total Wait Time: 298.84
+
+ 1 processor 600ms:
+- Total # of Context Switches: 156
+- Total execution time: 68.0
+- Total time spent in READY state: 301.9
+
+ 1 processor 800ms:
+- Average # of Context Switches: 136.00 
+- Average Total Execution Time: 67.60  
+- Average Total Wait Time: 325.40 
+
+The relationship between waiting time and time-slice length: the longer time-slice length, the longer waiting time.
+In real OS, we don't choose the shortest time-slice because: with shorter time slice, there will be more context switch. Frequent context switch can be a burden and lead to page faults. So the shortest time-slice is usually not the best choice.
+
+Problem 4 (The Priority Inversion Problem)
+---------
+We can raise the P3's priority to be higher than P2, but lower than P1, so that P3 doesn't have to be preempted by P2. P3 will be executed fully, then there will only P1 and P2 waiting in the ready queue. Since P1 has higher priority than P2, P1 can be executed before P2.
